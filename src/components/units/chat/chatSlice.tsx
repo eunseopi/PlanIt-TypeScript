@@ -1,51 +1,15 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAction, type ChatMessage, type ChatRoom } from "../../../app/store";
 
-type ChatMessage = Record<string, unknown>;
-type ChatRoom = Record<string, unknown> | null;
-
-type ChatState = {
-  currentRoom: ChatRoom;
-  messagesByRoom: Record<string, ChatMessage[]>;
-};
-
-const initialState: ChatState = {
-  currentRoom: null,
-  messagesByRoom: {},
-};
-
-const chatSlice = createSlice({
-  name: "chat",
-  initialState,
-  reducers: {
-    enterRoom: (state, action: PayloadAction<ChatRoom>) => {
-      state.currentRoom = action.payload;
-    },
-    setMessages: (
-      state,
-      action: PayloadAction<{ roomId: string; messages: ChatMessage[] }>
-    ) => {
-      const { roomId, messages } = action.payload;
-      state.messagesByRoom[roomId] = messages;
-    },
-    setMesasges: (
-      state,
-      action: PayloadAction<{ roomId: string; messages: ChatMessage[] }>
-    ) => {
-      const { roomId, messages } = action.payload;
-      state.messagesByRoom[roomId] = messages;
-    },
-    addMessage: (
-      state,
-      action: PayloadAction<{ roomId: string; message: ChatMessage }>
-    ) => {
-      const { roomId, message } = action.payload;
-      if (!state.messagesByRoom[roomId]) {
-        state.messagesByRoom[roomId] = [];
-      }
-      state.messagesByRoom[roomId].push(message);
-    },
-  },
-});
-
-export const { enterRoom, setMessages, setMesasges, addMessage } = chatSlice.actions;
-export default chatSlice.reducer;
+export const enterRoom = createAction<ChatRoom>("chat/enterRoom");
+export const setMessages = createAction<{
+  roomId: string;
+  messages: ChatMessage[];
+}>("chat/setMessages");
+export const setMesasges = createAction<{
+  roomId: string;
+  messages: ChatMessage[];
+}>("chat/setMesasges");
+export const addMessage = createAction<{
+  roomId: string;
+  message: ChatMessage;
+}>("chat/addMessage");

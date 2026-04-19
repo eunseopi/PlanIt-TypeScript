@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ListFilter, ArrowDownUp } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 import { IoTrashBinSharp } from "react-icons/io5";
 import {
   resetMyPostsFilter,

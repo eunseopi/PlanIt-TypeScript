@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 import { useNavigate, useLocation } from "react-router-dom";
 import CommunityRoutes from "../../routes/CommunityRoutes";
 import Tabs from "../../components/commons/Tabs/Tabs";

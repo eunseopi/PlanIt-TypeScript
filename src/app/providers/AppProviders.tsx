@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import { AuthProvider } from "../../contexts/authContext";
-import { store } from "../store";
+import QueryProvider from "./QueryProvider";
 
 type AppProvidersProps = {
   children: ReactNode;
@@ -11,10 +10,10 @@ type AppProvidersProps = {
 
 export default function AppProviders({ children }: AppProvidersProps) {
   return (
-    <Provider store={store}>
+    <QueryProvider>
       <BrowserRouter>
         <AuthProvider>{children}</AuthProvider>
       </BrowserRouter>
-    </Provider>
+    </QueryProvider>
   );
 }

@@ -1,13 +1,17 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import Button from '../../../components/commons/Button/Button'
-import * as inquiry from './inquiry'
+import * as inquiry from './Inquiry.styles'
 import {ChevronDown} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 
 const Inquiry = ({
     email,
     handleChangeEmail
+}: {
+    email?: string;
+    handleChangeEmail?: (email: string) => void;
 }) => {
     const [formData, setFormData] = useState({
         inquiry: '',
@@ -20,11 +24,11 @@ const Inquiry = ({
         { id: 1, name: '계정 찾기' },
     ];
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-    const handleCategorySelect = (categoryName) => {
+    const handleCategorySelect = (categoryName: string) => {
         setFormData({...formData, category: categoryName});
         setIsOpen(false);
     };
@@ -47,9 +51,9 @@ const Inquiry = ({
                     <inquiry.Input
                         type="email"
                         id="login-email"
-                        value={email}
+                        value={email ?? ""}
                         placeholder="해당 주소로 답변을 보내드립니다."
-                        onChange={(e) => handleChangeEmail(e.target.value)}
+                        onChange={(e) => handleChangeEmail?.(e.target.value)}
                         required
                     />
                 </inquiry.FormGroup>

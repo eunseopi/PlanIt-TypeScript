@@ -45,4 +45,10 @@ export const authApi = {
     ),
   me: () => api.get("/v1/users/profile/read"),
   logout: () => api.post("/logout"),
+  registerFinal: (data: FormData) =>
+    api.post("/public/users/register/final", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
 };

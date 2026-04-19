@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import Button from '../../../components/commons/Button/Button'
-import * as findPwd from './findpwd'
+import * as findPwd from './Findpwd.styles'
 import ResendPopup from "./ResendPopup";
 import {useNavigate} from "react-router-dom";
 
@@ -16,11 +17,11 @@ const Findpwd = () => {
     const [isSent, setIsSent] = useState(false);
     const [showResendPopup, setShowResendPopup] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // 인증번호 전송 로직 추후 추가

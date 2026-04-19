@@ -1,9 +1,9 @@
-import * as loginModal from './loginmodal'
+import * as loginModal from './LoginModal.styles'
 import Button from "../../../../components/commons/Button";
 import Google from "../../../../assets/Logo/google.svg";
 import {useNavigate} from "react-router-dom";
 // import Findpwd from "../findpwd/Findpwd";
-import { Logo, SplashModalContainer  } from '../splash/splash';
+import { Logo, SplashModalContainer  } from '../splash/Splash.styles';
 import Input from '../../../../components/commons/Input/Input';
 import useLogin from '../../../../hooks/useLogin';
 

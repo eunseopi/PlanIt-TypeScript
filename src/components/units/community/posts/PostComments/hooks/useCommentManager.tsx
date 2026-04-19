@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { commentApi } from '../../../../../../api/comment';
+import {
+    useAddCommentMutation,
+    useDeleteCommentMutation,
+    useEditCommentMutation,
+} from '../../../../../../api/commentQueries';
 
 // ❓ 날짜 포맷팅 유틸로 분리할까요?
 const getDate = (date) => {
@@ -16,6 +20,9 @@ const useCommentManager = ( initialComments ) => {
     const [comments, setComments] = useState(() => initialComments || []);
     const [formHeight, setFormHeight] = useState(107);
     const [mentionUser, setMentionUser] = useState(null);
+    const addCommentMutation = useAddCommentMutation();
+    const editCommentMutation = useEditCommentMutation();
+    const deleteCommentMutation = useDeleteCommentMutation();
 
     // ⚠️ 댓글 로직 : request body 확인 후 수정!
 
@@ -31,7 +38,7 @@ const useCommentManager = ( initialComments ) => {
     // 댓글 목록 가져오기 
     // const fetchComments = async () => {
     //     try {
-    //         const data = await commentApi.getComments(postId); //postId 에 맞는 댓글 가져오기
+    //         const data = await commentsQuery.refetch(); //postId 에 맞는 댓글 가져오기
     //         setComments(data);
     //     } catch(error) {
     //         console.error('댓글 불러오기 실패', error);
@@ -43,8 +50,8 @@ const useCommentManager = ( initialComments ) => {
         if(!content.trim()) return alert('댓글을 입력해 주세요.'); //❓ toast 메세지로?
 
         try {
-            // const newComment = await commentApi.addComment({ postId, user, content });
-            const newComment = await commentApi.addComment({ user, content });
+            // const newComment = await addCommentMutation.mutateAsync({ postId, user, content });
+            const newComment = await addCommentMutation.mutateAsync({ content });
             if (newComment) setComments((prev) => [...prev, newComment]);
         } catch(error) {
             console.log('댓글 등록 실패', error); // ❓ toast 메세지로?
@@ -61,7 +68,7 @@ const useCommentManager = ( initialComments ) => {
         if(content === originalComment.content) return; // 수정 내용 없으면 실행 종료
 
         try {
-            const updatedComment = await commentApi.editComment({ id, content });
+            const updatedComment = await editCommentMutation.mutateAsync({ id, content });
             if(updatedComment) setComments((prev) => 
                 prev.map((comment) => comment.id === id ? {...comment, content} : comment)
             );
@@ -75,7 +82,7 @@ const useCommentManager = ( initialComments ) => {
         if(!window.confirm('정말 삭제하시겠습니까?')) return; // 취소누르면 실행 종료, ❓ modal 활용?
 
         try {
-            await commentApi.deleteComment(id);
+            await deleteCommentMutation.mutateAsync(id);
             setComments((prevComment) => prevComment.filter(comment => comment.id !== id));
         } catch(error) {
             console.log('댓글 삭제 실패', error); // ❓ toast 메세지로?
@@ -105,5 +112,3 @@ const useCommentManager = ( initialComments ) => {
 };
 
 export default useCommentManager;
-
-

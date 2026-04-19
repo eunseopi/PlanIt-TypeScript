@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import profile from "../../../assets/profile.png";
@@ -8,6 +7,7 @@ import Button from "../../../components/commons/Button/Button";
 import * as profileSetting from "./styles/profileSetting_style";
 import SelectBox from "../../../components/commons/SelectBox/SelectBox";
 import { BackButton, FormHeader, Header, Title } from "./styles/basic_style";
+import { useRegisterFinalMutation } from "../../../api/authQueries";
 
 const mbtiTypes = [
   "ISTJ",
@@ -30,6 +30,7 @@ const mbtiTypes = [
 
 const ProfileSetting = ({ onNext, registerdEmail }) => {
   const navigate = useNavigate();
+  const registerFinalMutation = useRegisterFinalMutation();
 
   const [profileData, setProfileData] = useState({
     nickname: "",
@@ -100,13 +101,7 @@ const ProfileSetting = ({ onNext, registerdEmail }) => {
     }
 
     try {
-      const res = await axios.post(
-        "http://3.24.148.236:9090/public/users/register/final",
-        form,
-        {
-          withCredentials: true,
-        }
-      );
+      await registerFinalMutation.mutateAsync(form);
       navigate("/login");
     } catch (error) {
       alert("프로필 설정 중 오류가 발생했습니다. 다시 시도해주세요.");

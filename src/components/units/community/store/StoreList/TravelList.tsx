@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "@/app/store/reactReduxCompat";
 import {
   RecommendCardSwiper,
   TravelMateCardColumn,

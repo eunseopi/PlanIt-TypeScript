@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 import styled from "@emotion/styled";
 import { closeDeletePopup, deleteSelectedPosts } from "../store/myPostsSlice";
 

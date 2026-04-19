@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { useEffect, useState, useRef } from "react";
 import Splash from "./splash/splash/Splash";
-import LoginModal from "./loginmodal/LoginModal";
-import { setLanguage } from "../../api/common";
+import LoginModal from "./splash/loginmodal/LoginModal";
+import { useSetLanguageMutation } from "../../api/commonQueries";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 
@@ -58,6 +58,7 @@ const ModalOverlay = styled.div`
 
 const SplashPage = () => {
   const { authChecked, isAuthenticated } = useAuth();
+  const setLanguageMutation = useSetLanguageMutation();
   const [showModal, setShowModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.getItem("lang") || "ko"
@@ -82,11 +83,11 @@ const SplashPage = () => {
     setIsLoginMode(true);
   };
 
-  const handleLanguageSelect = async (lang) => {
+  const handleLanguageSelect = async (lang: string) => {
     setSelectedLanguage(lang);
     try {
       const serverLang = lang === "ko" ? "KOREAN" : "ENGLISH";
-      await setLanguage(serverLang);
+      await setLanguageMutation.mutateAsync(serverLang);
     } catch (error) {
       console.error("언어 설정 실패: ", error);
     }

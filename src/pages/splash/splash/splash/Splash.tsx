@@ -1,11 +1,17 @@
-import * as splash from "./splash";
+import * as splash from "./Splash.styles";
 import Button from "../../../../components/commons/Button/index";
 import korea from "../../../../assets/country/southKorea.png";
 import china from "../../../../assets/country/china.png";
 import united from "../../../../assets/country/unitedStates.png";
 import japan from "../../../../assets/country/japan.png";
 
-const Splash = ({ selectedLanguage, onLanguageSelect, onStart }) => {
+type SplashProps = {
+  selectedLanguage: string;
+  onLanguageSelect: (language: string) => void;
+  onStart: () => void;
+};
+
+const Splash = ({ selectedLanguage, onLanguageSelect, onStart }: SplashProps) => {
   const languages = [
     { code: "ko", name: "한국어", flag: korea },
     { code: "en", name: "English", flag: united },

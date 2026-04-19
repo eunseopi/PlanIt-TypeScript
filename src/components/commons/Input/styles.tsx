@@ -23,7 +23,7 @@ export const ErrorMessage = styled.p`
 `
 
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<{ $hasError?: boolean }>`
     width: 100%;
     padding: 18px 20px;
     font-size: 14px;

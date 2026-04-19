@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Register_body from "./body/BasicInform";
 import EmailVerification from "./body/EmailVerification";

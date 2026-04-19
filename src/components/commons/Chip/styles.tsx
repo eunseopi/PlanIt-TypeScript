@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 
-export const ChipWrapper = styled.div`
+type ChipWrapperProps = {
+    size?: 'small' | 'medium';
+    state?: 'default' | 'selected';
+};
+
+export const ChipWrapper = styled.div<ChipWrapperProps>`
     display: inline-flex;
     align-items: center;
     gap: 4px;

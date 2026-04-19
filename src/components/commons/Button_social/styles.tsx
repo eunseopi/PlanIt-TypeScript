@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
+type StyledSocialBtnProps = {
+    variant?: 'primary' | 'secondary';
+    state?: 'pressed' | 'disabled' | null;
+};
+
 export const StyledSocialBtn = styled.button.withConfig({ // HTML 요소에 존재하지 않는 속성 막기
     shouldForwardProp: (prop) => prop !== 'variant' && prop !== 'state',
-  })`
+  })<StyledSocialBtnProps>`
     display: inline-flex;
     padding: 4px 10px;
     justify-content: center;

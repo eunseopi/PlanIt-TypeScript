@@ -1,12 +1,17 @@
 import { StyledButton } from "./styles";
 import PropTypes from "prop-types";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface ButtonProps {
-  children: any;
-  variant: string;
-  size: string;
-  fullWidth: string;
-  disabled: boolean;
+type ButtonVariant = "primary" | "secondary" | "outline" | "whiteDark";
+type ButtonSize = "small" | "medium" | "large";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: ReactNode;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  fullWidth?: boolean;
+  middleWidth?: boolean;
+  ninetyWidth?: boolean;
 }
 
 const Button = ({
@@ -14,6 +19,8 @@ const Button = ({
   variant = "primary",
   size = "medium",
   fullWidth,
+  middleWidth,
+  ninetyWidth,
   disabled,
   ...props
 }: ButtonProps) => {
@@ -22,6 +29,8 @@ const Button = ({
       $variant={variant}
       size={size}
       $fullWidth={fullWidth}
+      $middleWidth={middleWidth}
+      $ninetyWidth={ninetyWidth}
       disabled={disabled}
       {...props}
     >

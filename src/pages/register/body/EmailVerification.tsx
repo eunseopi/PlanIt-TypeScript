@@ -3,12 +3,19 @@ import { ChevronLeft } from "lucide-react";
 import Input from "../../../components/commons/Input/Input";
 import Button from "../../../components/commons/Button/Button";
 import * as Email from "./styles/emailVerification";
-import { authApi } from "../../../api/auth";
+import {
+  useResendEmailCodeMutation,
+  useSendEmailCodeMutation,
+  useVerifyEmailMutation,
+} from "../../../api/authQueries";
 import { useNavigate } from "react-router-dom";
 import { BackButton, FormHeader, Header, Title } from "./styles/basic_style";
 
 const EmailVerification = ({ onNext, registerdEmail }) => {
   const navigate = useNavigate();
+  const sendEmailCodeMutation = useSendEmailCodeMutation();
+  const verifyEmailMutation = useVerifyEmailMutation();
+  const resendEmailCodeMutation = useResendEmailCodeMutation();
 
   const [formData, setFormData] = useState({ verificationCode: "" });
 
@@ -30,7 +37,7 @@ const EmailVerification = ({ onNext, registerdEmail }) => {
     setIsSent(true);
 
     try {
-      const res = await authApi.sendEmailCode(registerdEmail);
+      await sendEmailCodeMutation.mutateAsync(registerdEmail);
       setIsSent(true);
       setErrors({ ...errors, email: "" });
     } catch (error) {
@@ -61,7 +68,7 @@ const EmailVerification = ({ onNext, registerdEmail }) => {
     }
 
     try {
-      const res = await authApi.verifyEmail({
+      await verifyEmailMutation.mutateAsync({
         email: registerdEmail,
         verificationCode: verificationCode,
       });
@@ -78,7 +85,7 @@ const EmailVerification = ({ onNext, registerdEmail }) => {
     e.preventDefault();
     // 인증번호 재발송 로직 추가
     try {
-      const res = await authApi.resendEmailCode(registerdEmail);
+      await resendEmailCodeMutation.mutateAsync(registerdEmail);
     } catch (error) {}
   };
 

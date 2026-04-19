@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "@/app/store/reactReduxCompat";
 import {
   Modal,
   Content,

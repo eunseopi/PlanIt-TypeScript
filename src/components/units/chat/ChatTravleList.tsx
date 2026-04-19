@@ -22,7 +22,7 @@ import MessageItem from "./components/MessageItem";
 import PartTravelMate from "./TravelMateCards/PartTravelMate";
 import partDummyTravelList from "./dummy/partDummyTravelList";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "@/app/store/reactReduxCompat";
 import { enterRoom } from "../chat/chatSlice";
 
 const chunkByTwo = (array) => {

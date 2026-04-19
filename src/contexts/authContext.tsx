@@ -1,8 +1,12 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 
-import { authApi } from "../api/auth";
+import {
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+} from "../api/authQueries";
 import { selectIsAuthenticated, selectUser } from "../store/account/accountSelector";
 import { clearUser, setUser } from "../store/account/accountSlice";
 
@@ -24,29 +28,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const [authChecked, setAuthChecked] = useState(false);
+  const meQuery = useMeQuery();
+  const loginMutation = useLoginMutation();
+  const logoutMutation = useLogoutMutation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await authApi.me();
-        dispatch(setUser(response?.data ?? response));
-      } catch {
-        dispatch(clearUser());
-      } finally {
-        setAuthChecked(true);
-      }
-    };
+    if (meQuery.data) {
+      dispatch(setUser(meQuery.data));
+      return;
+    }
 
-    checkAuth();
-  }, [dispatch]);
+    if (meQuery.isError) {
+      dispatch(clearUser());
+    }
+  }, [dispatch, meQuery.data, meQuery.isError]);
 
   const login = async (email: string, password: string) => {
     try {
-      await authApi.login({ email, password });
-      const response = await authApi.me();
-      dispatch(setUser(response?.data ?? response));
+      const response = await loginMutation.mutateAsync({ email, password });
+      dispatch(setUser(response));
       navigate("/welcome");
     } catch (error) {
       console.error("로그인 실패:", error);
@@ -55,13 +56,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = () => {
+    logoutMutation.mutate();
     dispatch(clearUser());
     navigate("/splash");
   };
 
   const value = useMemo(
-    () => ({ user, isAuthenticated, authChecked, login, logout }),
-    [user, isAuthenticated, authChecked]
+    () => ({
+      user,
+      isAuthenticated,
+      authChecked: meQuery.isFetched,
+      login,
+      logout,
+    }),
+    [user, isAuthenticated, meQuery.isFetched]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

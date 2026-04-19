@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 
 import { addMessage } from "../chatSlice";
 import type { RootState } from "../../../../app/store";

@@ -8,7 +8,7 @@ import {
   BubbleTime,
 } from "../styles/ChatRoom.style";
 
-import { useSelector } from "react-redux";
+import { useSelector } from "@/app/store/reactReduxCompat";
 
 const ChatMessage = ({ message }) => {
   const { currentRoom } = useSelector((state) => state.chat);

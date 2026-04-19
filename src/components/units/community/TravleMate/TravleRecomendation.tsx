@@ -4,7 +4,7 @@ import {
   RecommendCardSwiper,
   TravelMateCardColumn,
 } from "./TravleList/styles/RecomendationStores.style";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/app/store/reactReduxCompat";
 import TravelMate from "../TravelMate";
 import { useRef } from "react";
 import useDragScrollY from "./TravleList/hooks/useDragScrollY";

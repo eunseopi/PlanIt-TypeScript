@@ -1,7 +1,7 @@
 import Card from "../../Card";
 import useMyPostsFilter from "./hooks/useMyPostsFilter";
 import styled from "@emotion/styled";
-import { useSelector } from "react-redux";
+import { useSelector } from "@/app/store/reactReduxCompat";
 
 export const RecommendCardSwiper = styled.div`
   padding: 20px 0 20px 20px;

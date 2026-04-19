@@ -5,7 +5,7 @@ type ButtonProps = {
   $fullWidth?: boolean;
   $middleWidth?: boolean;
   $ninetyWidth?: boolean;
-  size: "small" | "large";
+  size?: "small" | "medium" | "large";
 };
 
 export const StyledButton = styled.button<ButtonProps>`

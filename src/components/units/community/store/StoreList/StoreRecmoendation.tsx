@@ -14,7 +14,7 @@ import {
   RecommendPostsBox,
   RecommendPostsTitleWrapper,
 } from "./styles/RecomendationStores.style";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "@/app/store/reactReduxCompat";
 import PostList from "./PostList";
 import TravelList from "./TravelList";
 

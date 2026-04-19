@@ -1,7 +1,16 @@
 // import { inputStyles } from "./styles";
 import { Container, Label, StyledInput, ErrorMessage } from './styles'
+import type { ChangeEventHandler, InputHTMLAttributes, ReactNode } from "react";
 
-// undefined 방지를 위해 id와 placeholder의 기본 값을 빈 문자열로 설정
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+    label?: ReactNode;
+    value?: string | number | readonly string[];
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    error?: ReactNode;
+    hasError?: boolean;
+    $hasError?: boolean | string;
+}
+
 const Input = ({ 
     label, 
     id = "", 
@@ -11,9 +20,10 @@ const Input = ({
     placeholder = "", 
     error, 
     hasError, 
+    $hasError,
     required=false,
     ...props
-}) => {
+}: InputProps) => {
     return (
         <Container>
             {label && (
@@ -27,7 +37,7 @@ const Input = ({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                $hasError={hasError}
+                $hasError={hasError ?? Boolean($hasError) ?? Boolean(error)}
                 required={required}
                 {...props}
             />

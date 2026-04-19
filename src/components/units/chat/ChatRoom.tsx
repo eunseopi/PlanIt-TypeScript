@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "@/app/store/reactReduxCompat";
 import { useParams, useNavigate } from "react-router-dom";
 import { Wrapper } from "./styles/ChatRoom.style";
 import ChatHeader from "./components/ChatHeader";

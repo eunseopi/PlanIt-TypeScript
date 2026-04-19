@@ -3,11 +3,12 @@ import { ChevronLeft } from "lucide-react";
 import Button from "../../../components/commons/Button/Button";
 import Input from "../../../components/commons/Input/Input";
 import * as basic from "./styles/basic_style";
-import { authApi } from "../../../api/auth";
+import { useRegisterAppMutation } from "../../../api/authQueries";
 import { useNavigate } from "react-router-dom";
 
 const BasicInform = ({ onNext, formData, setFormData }) => {
   const navigate = useNavigate();
+  const registerAppMutation = useRegisterAppMutation();
 
   const [errors, setErrors] = useState({
     name: "",
@@ -88,13 +89,12 @@ const BasicInform = ({ onNext, formData, setFormData }) => {
     }
 
     try {
-      const res = await authApi.registerApp({
+      await registerAppMutation.mutateAsync({
         name: formData.name,
         phoneNumber: formData.phone,
         email: formData.email,
         password: formData.password,
       });
-      const { user } = res.data;
       onNext(formData);
     } catch (error) {
       if (error.response) {
