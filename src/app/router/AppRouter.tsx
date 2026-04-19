@@ -18,7 +18,7 @@ export default function AppRouter() {
       <Route path="/register/*" element={<Register />} />
       <Route path="/inquiry/*" element={<InquiryRoutes />} />
       <Route path="/chats/*" element={<ChatRoutes />} />
-      <Route path="/" element={<Navigate to="/community/post" replace />} />
+      <Route path="/" element={<Navigate to="/splash" replace />} />
       <Route path="/community/*" element={<Community />} />
       <Route path="/community/post/:postId" element={<PostDetail />} />
     </Routes>
