@@ -3,7 +3,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import './styles/imageSlider.css'
+import './styles/ImageSlider.css'
 
 const ImageSlider = ({ images }) => {
     return (
